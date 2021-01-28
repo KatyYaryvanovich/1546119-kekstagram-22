@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Katsiaryna Yaryvanovich](https://up.htmlacademy.ru/javascript/22/user/1546119).
-* Наставник: [`Игорь Агапов`] (https://htmlacademy.ru/profile/id1034633).
+* Наставник: [Игорь Агапов](https://htmlacademy.ru/profile/id1034633).
 
 ---
 
