@@ -11,7 +11,7 @@ const getRandomIntInclusive = (min, max) => {
 
   if (min < 0) {
     return 'Диапазон может быть только положительный';
-  } else if (max < min) {
+  } else if (max <= min) {
     return 'Значение «max» должно быть больше значения «min»';
   } else {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -24,9 +24,13 @@ getRandomIntInclusive()
 //2. Функция для проверки максимальной длины строки.
 //имя_функции(проверяемая_строка, максимальная длина); Результат: true, если строка проходит по длине, и false — если не проходит
 
-const commentLength = (checkedComment, maxLength) => {
-  return (checkedComment.length <= maxLength) ? true : false;
-}
+// 1-й способ
+/* const commentLength = (checkedComment, maxLength) => {
+   return (checkedComment.length <= maxLength) ? true : false;
+ }
+commentLength();*/
 
-commentLength();
+// 2-й способ
+const commentLength = (checkedComment, maxLength) => checkedComment.length <= maxLength ? true : false;
 
+commentLength()
