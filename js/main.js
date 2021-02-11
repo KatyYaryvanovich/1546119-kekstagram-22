@@ -77,10 +77,13 @@ reverseWord('hello');
 
 // Задание 3
 
-// id для фото
+//Условия, база данных
+
+// id для фото - Идентификаторы не должны повторяться
+// ! в качестве идентификаторов лучше строки использовать в будущем коде
 const idPhoto = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
 
-//адрес картинки
+//адрес картинки - Адреса картинок не должны повторяться.
 const urlPhoto = [
   'photos/1.jpg',
   'photos/2.jpg',
@@ -110,8 +113,7 @@ const urlPhoto = [
 ];
 
 // описание фотографии
-
-const  descriptionPhoto = [
+const descriptionPhoto = [
   'Это рай на земле',
   'Наконец-то отпуск',
   'Это же остров Баунти',
@@ -124,7 +126,7 @@ const  descriptionPhoto = [
   'Sweet home',
   'Красота вокруг нас',
   'Так и живём',
-  'Мли куинарные шедевры',
+  'Мои куинарные шедевры',
   'Искусство, как я его вижу',
   'Время отдохнуть',
   'Ну красота же, да?',
@@ -139,39 +141,19 @@ const  descriptionPhoto = [
   'Жизнь бывает и такой',
 ];
 
-//количество лайков
-const like = (min, max) => {
-  if (min < 15 && max > 200) {
-    throw new Error('error message');
-  }
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+//количество лайков - случайное число от 15 до 200
 
+/*------------------*/
 // Комментарии
 
-//id для комментариев - комментариев может быть неизвесное количество, но у каждого коммента должен быть уникальный id, поэтому навскидку придумала, что пусть будет выборка из 200
-// код для генерации неповторяющихся чисел - в случайном порядке заполнит массив
-let idComment = [];
-do {
-  let num = Math.floor(Math.random() * 200 + 1);
-  idComment.push(num);
-  idComment = idComment.filter((item, index) => {
-    return idComment.indexOf(item) === index
-  });
-} while (idComment.length < 200);
-
-// аватарка, функция для выбора случайной аватарки
-const avatarComment = () => {
-  let x = (min, max) => {
-    if (min < 1 && max > 6) {
-      throw new Error('error message');
-    }
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
-  return `img/avatar-${x(1, 6)}.svg`;
+//id для комментариев - случайное число, не должно повторяться
+//комментариев может быть неизвесное количество, но у каждого коммента должен быть уникальный id, поэтому навскидку придумала, что пусть будет выборка из 200
+const idComment = [];
+for ( let i = 0; i <= 200; i++ ) {
+  idComment.push(i);
 }
 
-// текст комментария
+// текст комментария - одно или два случайных предложения
 const messageComment = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -181,7 +163,7 @@ const messageComment = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-// имя комментатора
+// имя комментатора - случайное
 const nameComment = [
   'Петя',
   'Ваня',
@@ -193,55 +175,72 @@ const nameComment = [
   'Петруша',
   'Манюша',
   'Ильюша',
-]
+];
 
-//функция по поиску случайного элемента в массиве
-const getRandomArrayElement = (elements) => {
-  return elements[_.random(0, elements.length - 1)];
-};
+/* ==========================================================================*/
+
+// функция для получения случайного целого числа, она допусает, что число может повторяться
+const isValid = (min, max) => min < max && min >= 0 && max > 0
+const getRandomNum = (min, max) =>
+  !isValid(min, max)
+    ? new Error('error')
+    : min === max
+      ? min  //
+      : ~~(min + Math.random() * (max + 1 - min))
+
+//функция для получения из массива случайного целого числа  без его повтора
+const getRandomInt = (min, max) => ~~(Math.random() * (max - min + 1)) + min
+const getRandomArrayElement = (arr) => {
+  const item = arr[getRandomInt(0, arr.length - 1)];
+  arr.splice(arr.indexOf(item), 1);
+  return item;
+}
+
+//функция по поиску случайного элемента в массиве с повтором
+// const getRandomRepeatableArrayElement = (elements) => {
+//   return elements[_.random(0, elements.length - 1)];
+// };
+//? эта тоже подходит - тогда lodash не нужен?
+const getRandomRepeatableArrayElement = (arr) => {
+  const item = arr[getRandomInt(0, arr.length - 1)];
+  return item;
+}
+
+
 
 // функция для создания объекта с комментарием
-const createComment = () => {
-  return {
+const createComment = () =>
+  ({
     idComment: getRandomArrayElement(idComment),
-    avatar: avatarComment(),
-    message: getRandomArrayElement(messageComment),
-    name: getRandomArrayElement(nameComment),
-  };
-};
+    // avatar — это строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg
+    avatar: `img/avatar-${getRandomNum(1, 6)}.svg`,
+    message: messageComment.slice(0, (getRandomInt(1, 6))).join(', '),
+    name: getRandomRepeatableArrayElement(nameComment),
+  });
 
-// функия для создания объекта фото
-const createPhoto = () => {
-  return {
+//? Вообще comments -должен быть массив объектов — список комментариев, оставленных другими пользователями к этой фотографии.
+//?Количество комментариев к каждой фотографии вы определяете на своё усмотрение.Все комментарии генерируются случайным образом.
+//?Я делала так
+//?const commetArr = new Array(5).fill(null).map(() => createComment()) -  к меня получается массив из 5 объектов.
+//?Но когда подставляю в const createPhoto - comments: commetArr - к первому фото выдаёт массив комментов, а к следующим уже пишет ошибку [circular object Array]
+
+// функция для создания объекта фото
+const createPhoto = () =>
+  ({
     id: getRandomArrayElement(idPhoto),
     url: getRandomArrayElement(urlPhoto),
     description: getRandomArrayElement(descriptionPhoto),
-    likes: like(15, 200),
+    likes: getRandomNum(15, 200),
     comments: createComment(),
-  }
-}
+  });
 
 //количество необходимых объектов для генерации
 const photoCount = 25;
+
 // массив - список комментариев
 const photoObjects = new Array(photoCount).fill(null).map(() => createPhoto());
 
-/* Проблемы:
-1. не знаю, как сделать так, чтобы фотографии, их id и описания к ним не повторялись в общем массиве
-2. блок с комментариями comments выдаётся перед блоком с описанием фото, хотя в коде он после идёт
-      return {
-          id: getRandomArrayElement(idPhoto),
-          url: getRandomArrayElement(urlPhoto),
-          description: getRandomArrayElement(descriptionPhoto),
-          likes: like(15, 200),
-          comments: createComment(),
-        }
-3. похожая проблема - в блоке комментариев к фото avatar стоит на первом месте, хотя должен быть как в коде после idComment
-          return {
-          idComment: getRandomArrayElement(idComment),
-          avatar: avatarComment(),
-          message: getRandomArrayElement(messageComment),
-          name: getRandomArrayElement(nameComment),
-        };
-*/
+// если пишу console.log - Eslint указывает, что нельзя использовать console, если убрать это слово, то const photoObjects будет подчёркнуто
+photoObjects
+
 
