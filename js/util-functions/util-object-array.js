@@ -4,7 +4,7 @@ import { idPhoto, urlPhoto, descriptionPhoto, messageComment, nameComment } from
 import { getRandomArrEl, getRandomNum, getRandomInt, getRandomRepeatArrEl, idComment } from './util-uniq-random.js';
 
 
-// функция для создания объекта с комментарием
+
 const createComment = () =>
   ({
     idComment: getRandomArrEl(idComment),
@@ -14,7 +14,7 @@ const createComment = () =>
   });
 
 
-// функция для создания объекта фото
+
 const createPhoto = () =>
   ({
     id: getRandomArrEl(idPhoto),
@@ -25,9 +25,8 @@ const createPhoto = () =>
   });
 
 
-//количество необходимых объектов для генерации
+
 const photoCount = 25;
 
-// генерация массива - списока комментариев
 const photoObjects = new Array(photoCount).fill(null).map(() => createPhoto());
 photoObjects();
