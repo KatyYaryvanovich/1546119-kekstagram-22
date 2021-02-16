@@ -1,4 +1,6 @@
-//модуль, который создаёт данные
+// модуль для генерации временных данных для разработки
+import { getRandomArrEl, getRandomNum, getRandomInt, getRandomRepeatArrEl, idComment } from './util-uniq-random.js';
+
 
 const idPhoto = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
 
@@ -80,4 +82,28 @@ const nameComment = [
   'Ильюша',
 ];
 
-export {idPhoto, urlPhoto, descriptionPhoto, messageComment, nameComment};
+const photoCount = 25;
+
+const createComment = () =>
+  ({
+    idComment: getRandomArrEl(idComment),
+    avatar: `img/avatar-${getRandomNum(1, 6)}.svg`,
+    message: messageComment.slice(0, (getRandomInt(1, 6))).join(', '),
+    name: getRandomRepeatArrEl(nameComment),
+  });
+
+
+const createPhoto = () =>
+  ({
+    id: getRandomArrEl(idPhoto),
+    url: getRandomArrEl(urlPhoto),
+    description: getRandomArrEl(descriptionPhoto),
+    likes: getRandomNum(15, 200),
+    comments: createComment(),
+  });
+
+
+const photoObjects = new Array(photoCount).fill(null).map(() => createPhoto());
+photoObjects();
+
+// export {photoObjects};
