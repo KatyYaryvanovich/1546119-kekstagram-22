@@ -104,6 +104,6 @@ const createPhoto = () =>
 
 
 const photoObjects = new Array(photoCount).fill(null).map(() => createPhoto());
-photoObjects();
+photoObjects()
 
-// export {photoObjects};
+export {createPhoto};
