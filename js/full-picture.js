@@ -55,6 +55,10 @@ const getFullPicture = (preview) => {
   document.querySelector('.likes-count').textContent = preview.likes;
   document.querySelector('.social__caption').textContent = preview.description;
   document.querySelector('.comments-count').textContent = preview.comments.length;
+
+  while (commentsList.firstChild) {
+    commentsList.removeChild(commentsList.firstChild);
+  }
   for (let i = 0; i < preview.comments.length; i++) {
     const comment = document.createElement('li');
     comment.classList.add('social__comment');
@@ -71,7 +75,8 @@ const getFullPicture = (preview) => {
     comment.appendChild(commentText);
     commentsFragment.appendChild(comment);
   }
-  commentsList.appendChild(commentsFragment)
+  commentsList.appendChild(commentsFragment);
+
 }
 
 export { getFullPicture }

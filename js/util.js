@@ -28,4 +28,4 @@ const isEnterEvent = (evt) => {
 
 
 
-export { getRandomArrEl, getRandomNum, getRandomInt, getRandomRepeatArrEl, isEscEvent, isEnterEvent };
+export { getRandomArrEl, getRandomNum, getRandomRepeatArrEl, isEscEvent, isEnterEvent };
