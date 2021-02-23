@@ -1,4 +1,4 @@
-import { getRandomArrEl, getRandomNum, getRandomRepeatArrEl } from './util.js';
+import { getRandomArrEl, getRandomNum } from './util.js';
 
 
 const idPhoto = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
@@ -90,10 +90,10 @@ const photoCount = 25;
 
 const createComment = () =>
   ({
-    idComment: getRandomArrEl(idComment),
+    idComment: getRandomArrEl(idComment, true),
     avatar: `img/avatar-${getRandomNum(1, 6)}.svg`,
-    message: getRandomRepeatArrEl(messageComment),
-    name: getRandomRepeatArrEl(nameComment),
+    message: getRandomArrEl(messageComment),
+    name: getRandomArrEl(nameComment),
   });
 
 
@@ -109,9 +109,9 @@ const createCommentArr = () => {
 
 const createPhoto = () =>
   ({
-    id: getRandomArrEl(idPhoto),
-    url: getRandomArrEl(urlPhoto),
-    description: getRandomArrEl(descriptionPhoto),
+    id: getRandomArrEl(idPhoto, true),
+    url: getRandomArrEl(urlPhoto, true),
+    description: getRandomArrEl(descriptionPhoto, true),
     likes: getRandomNum(15, 200),
     comments: createCommentArr(),
   });

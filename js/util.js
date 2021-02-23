@@ -1,21 +1,17 @@
-const isValid = (min, max) => min < max && min >= 0 && max > 0
-const getRandomNum = (min, max) => {
-  if (isValid(min, max)) return ~~(min + Math.random() * (max + 1 - min))
-  else throw new Error('invalid')
-}
 
-const getRandomInt = (min, max) => ~~(Math.random() * (max - min + 1)) + min
-const getRandomArrEl = (arr) => {
-  const item = arr[getRandomInt(0, arr.length - 1)];
-  arr.splice(arr.indexOf(item), 1);
-  return item;
+const getRandomNum = (min, max, precision) => {
+  if (min < 0 && min < max) throw new Error('error')
+  const n = min + Math.random() * (max + 1 - min)
+  return !precision ? ~~n : n.toFixed(precision)
 }
 
 
-const getRandomRepeatArrEl = (arr) => {
-  const item = arr[getRandomInt(0, arr.length - 1)];
-  return item;
+const getRandomArrEl = (arr, unique = false) => {
+  const item = arr[getRandomNum(0, arr.length - 1)]
+  if (unique) arr.splice(arr.indexOf(item), 1)
+  return item
 }
+
 
 const isEscEvent = (evt) => {
   return evt.key === ('Escape' || 'Esc');
@@ -27,5 +23,4 @@ const isEnterEvent = (evt) => {
 
 
 
-
-export { getRandomArrEl, getRandomNum, getRandomRepeatArrEl, isEscEvent, isEnterEvent };
+export { getRandomArrEl, getRandomNum, isEscEvent, isEnterEvent };
