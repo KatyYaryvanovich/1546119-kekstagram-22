@@ -1,5 +1,4 @@
-// модуль для генерации временных данных для разработки
-import { getRandomArrEl, getRandomNum, getRandomInt, getRandomRepeatArrEl, idComment } from './util-uniq-random.js';
+import { getRandomArrEl, getRandomNum } from './util.js';
 
 
 const idPhoto = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
@@ -82,28 +81,44 @@ const nameComment = [
   'Ильюша',
 ];
 
+const idComment = [];
+for ( let i = 0; i <= 200; i++ ) {
+  idComment.push(i);
+}
+
 const photoCount = 25;
 
 const createComment = () =>
   ({
-    idComment: getRandomArrEl(idComment),
+    idComment: getRandomArrEl(idComment, true),
     avatar: `img/avatar-${getRandomNum(1, 6)}.svg`,
-    message: messageComment.slice(0, (getRandomInt(1, 6))).join(', '),
-    name: getRandomRepeatArrEl(nameComment),
+    message: getRandomArrEl(messageComment),
+    name: getRandomArrEl(nameComment),
   });
+
+
+const createCommentArr = () => {
+  const commentArr = [];
+  const commentCount = getRandomNum(1, 9);
+  for (let i = 0; i < commentCount; i++) {
+    commentArr.push(createComment(i));
+  }
+  return commentArr;
+}
 
 
 const createPhoto = () =>
   ({
-    id: getRandomArrEl(idPhoto),
-    url: getRandomArrEl(urlPhoto),
-    description: getRandomArrEl(descriptionPhoto),
+    id: getRandomArrEl(idPhoto, true),
+    url: getRandomArrEl(urlPhoto, true),
+    description: getRandomArrEl(descriptionPhoto, true),
     likes: getRandomNum(15, 200),
-    comments: createComment(),
+    comments: createCommentArr(),
   });
 
 
 const photoObjects = new Array(photoCount).fill(null).map(() => createPhoto());
-photoObjects()
 
-export {createPhoto};
+
+export { photoObjects, idComment };
+
