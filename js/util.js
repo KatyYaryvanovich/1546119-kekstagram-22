@@ -10,7 +10,7 @@ const getRandomArrEl = (arr, unique = false) => {
   const item = arr[getRandomNum(0, arr.length - 1)]
   if (unique) arr.splice(arr.indexOf(item), 1)
   return item
-}
+} 
 
 
 const isEscEvent = (evt) => {
