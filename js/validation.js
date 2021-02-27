@@ -2,11 +2,11 @@ import { hashtagInput } from './upload-img.js'
 
 hashtagInput.addEventListener('input', () => {
 
-  const hashtagArr = hashtagInput.value.fill(null).split(' ');
+  const hashtagArr = hashtagInput.value.split(' ');
 
   hashtagArr.forEach((hashtag, index) => {
 
-    const allowedSymbol = /^[а-яА-ЯёЁa-zA-Z0-9]+$/
+    const allowedSymbol = /^[а-яА-ЯёЁa-zA-Z0-9]+$/;
     const isValid = allowedSymbol.test(hashtag.split('#')[1]);
 
     if (!(hashtag[0] === '#')) {
