@@ -31,3 +31,4 @@ scaleBigger.addEventListener('click', () => {
 
 
 export { scaleValue, scaleDefolt, uploadPreview }
+

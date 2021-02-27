@@ -1,12 +1,15 @@
 import { isEscEvent, isEnterEvent } from './util.js'
 import { scaleValue, scaleDefolt, uploadPreview } from './scale-upload-img.js'
-import {slider} from './effect-upload-img.js';
+import { slider } from './effect-upload-img.js';
 
 
 const uploadImg = document.querySelector('#upload-file');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 const bodyModalOpen = document.querySelector('body');
 const uploadCancel = document.querySelector('#upload-cancel');
+const hashtagInput = document.querySelector('.text__hashtags');
+const commentInput = document.querySelector('.text__description');
+
 
 
 const openUploadImg = () => {
@@ -38,7 +41,7 @@ uploadCancel.addEventListener('click', () => {
 });
 
 const onPopupEscKeydown = (evt) => {
-  if (isEscEvent(evt)) {
+  if (isEscEvent(evt) && !((commentInput === document.activeElement) || (hashtagInput === document.activeElement))) {
     evt.preventDefault();
     closeUploadImg();
   }
@@ -51,4 +54,4 @@ const onPopupEnterKeydown = (evt) => {
 };
 
 
-
+export { hashtagInput }
