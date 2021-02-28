@@ -1,5 +1,16 @@
 import { hashtagInput } from './upload-img.js'
 
+
+const errorMessage = {
+  errorStart: 'хэш-тег должен начинаться с символа #',
+  errorSymbol: 'хэш-тэг может состоять только из букв и чисел',
+  tooShort: 'хеш-тег не может состоять только из #',
+  tooLong: 'длина хэш-тега не более 20 символов',
+  errorRepeat: 'хэш-тег не может повторяться',
+  tooMuch: 'нельзя использовать больше пяти хэш-тегов',
+}
+
+
 hashtagInput.addEventListener('input', () => {
 
   const hashtagArr = hashtagInput.value.split(' ');
@@ -10,17 +21,17 @@ hashtagInput.addEventListener('input', () => {
     const isValid = allowedSymbol.test(hashtag.split('#')[1]);
 
     if (!(hashtag[0] === '#')) {
-      hashtagInput.setCustomValidity('хэш-тег должен начинаться с символа #')
+      hashtagInput.setCustomValidity(errorMessage.errorStart)
     } else if (!isValid) {
-      hashtagInput.setCustomValidity('хэш-тэг может состоять только из букв и чисел')
+      hashtagInput.setCustomValidity(errorMessage.errorSymbol)
     } else if (hashtag.length === 1) {
-      hashtagInput.setCustomValidity('хеш-тег не может состоять только из #')
+      hashtagInput.setCustomValidity(errorMessage.tooShort)
     } else if (hashtag.length > 20) {
-      hashtagInput.setCustomValidity('длина хэш-тега не более 20 символов');
+      hashtagInput.setCustomValidity(errorMessage.tooLong);
     } else if (hashtagArr[index - 1] === hashtagArr[index]) {
-      hashtagInput.setCustomValidity('хэш-тег не может повторяться')
+      hashtagInput.setCustomValidity(errorMessage.errorRepeat)
     } else if (hashtagArr.length > 5) {
-      hashtagInput.setCustomValidity('нельзя использовать больше пяти хэш-тегов')
+      hashtagInput.setCustomValidity(errorMessage.tooMuch)
     } else {
       hashtagInput.setCustomValidity('');
     }
