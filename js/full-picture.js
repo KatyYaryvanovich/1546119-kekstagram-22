@@ -48,7 +48,6 @@ const onPopupEnterKeydown = (evt) => {
 };
 
 
-
 const getFullPicture = (preview) => {
   openFullPicture();
   document.querySelector('.big-picture__img img').src = preview.url;
