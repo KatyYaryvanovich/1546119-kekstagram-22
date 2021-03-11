@@ -6,7 +6,7 @@ const blockImgFilters = document.querySelector('.img-filters');
 const imgFiltersForm = document.querySelector('.img-filters__form');
 
 const RERENDER_DELAY = 500;
-const picturesCount = 10;
+const randomPicsCount = 10;
 let getDefaultImgArr;
 let getRandomImgArr;
 let getPopularImgArr;
@@ -46,7 +46,7 @@ const setFiltration = (previewList) => {
 
     else if (evt.target.id === 'filter-random') {
       const randomImgArr = [];
-      for (let i = 0; i < picturesCount; i++) {
+      for (let i = 0; i < randomPicsCount; i++) {
         let element = previewList[getRandomNum(0, previewList.length - 1)];
         while (randomImgArr.indexOf(element) !== -1) {
           element = previewList[getRandomNum(0, previewList.length - 1)];
