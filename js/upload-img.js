@@ -1,44 +1,42 @@
 import { isEscEvent, isEnterEvent } from './util.js'
-import { scaleValue, scaleDefolt, uploadPreview } from './scale-upload-img.js'
+import { scaleValue, SCALE_DEFOLT, uploadingPreview } from './scale-upload-img.js'
 import { slider } from './effect-upload-img.js';
 
-
-
-const uploadImg = document.querySelector('#upload-file');
-const uploadOverlay = document.querySelector('.img-upload__overlay');
-const UploadInput = document.querySelector('.img-upload__input');
+const uploadingImg = document.querySelector('#upload-file');
+const uploadingOverlay = document.querySelector('.img-upload__overlay');
+const uploadingInput = document.querySelector('.img-upload__input');
 const bodyModalOpen = document.querySelector('body');
-const uploadCancel = document.querySelector('#upload-cancel');
+const uploadingCancel = document.querySelector('#upload-cancel');
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
 
 
 const openUploadImg = () => {
-  uploadOverlay.classList.remove('hidden');
+  uploadingOverlay.classList.remove('hidden');
   bodyModalOpen.classList.add('modal-open');
-  scaleValue.value = `${scaleDefolt} %`;
-  uploadPreview.style.transform = 'scale(1)';
-  uploadPreview.style.filter = 'none';
+  scaleValue.value = `${SCALE_DEFOLT} %`;
+  uploadingPreview.style.transform = 'scale(1)';
+  uploadingPreview.style.filter = 'none';
   slider.classList.add('visually-hidden');
   document.addEventListener('keydown', onPopupEscKeydown);
-  uploadOverlay.addEventListener('keydown', onPopupEnterKeydown);
+  uploadingOverlay.addEventListener('keydown', onPopupEnterKeydown);
 }
 
-uploadImg.addEventListener('change', () => {
+uploadingImg.addEventListener('change', () => {
   openUploadImg();
 });
 
 
 const closeUploadImg = () => {
-  uploadOverlay.classList.add('hidden');
+  uploadingOverlay.classList.add('hidden');
   bodyModalOpen.classList.remove('modal-open');
-  uploadImg.value = '';
-  UploadInput.value = '';
+  uploadingImg.value = '';
+  uploadingInput.value = '';
   document.removeEventListener('keydown', onPopupEscKeydown);
-  uploadOverlay.removeEventListener('keydown', onPopupEnterKeydown);
+  uploadingOverlay.removeEventListener('keydown', onPopupEnterKeydown);
 }
 
-uploadCancel.addEventListener('click', () => {
+uploadingCancel.addEventListener('click', () => {
   closeUploadImg();
 });
 

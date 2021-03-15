@@ -1,8 +1,6 @@
-
 import { getFullPicture } from './full-picture.js'
 
 const pictures = document.querySelector('.pictures');
-
 const pictureTemplate = document.querySelector('#picture').content;
 const newPictureTemplate = pictureTemplate.querySelector('.picture');
 const fragment = document.createDocumentFragment();
@@ -27,5 +25,6 @@ const getPreview = (photoObjects) => {
 
   pictures.appendChild(fragment);
 }
+
 
 export { getPreview }
