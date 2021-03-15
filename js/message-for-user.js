@@ -1,13 +1,11 @@
 import { sendData } from './api.js'
 import { showMessage } from './util.js'
 
+const uploadingForm = document.querySelector('.img-upload__form');
 
-
-
-const uploadForm = document.querySelector('.img-upload__form');
 
 const setUserFormSubmit = (onSuccess, onFail) => {
-  uploadForm.addEventListener('submit', (evt) => {
+  uploadingForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
@@ -23,5 +21,6 @@ const setUserFormSubmit = (onSuccess, onFail) => {
     new FormData(evt.target)
   });
 };
+
 
 export { setUserFormSubmit }

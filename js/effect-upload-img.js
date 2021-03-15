@@ -1,5 +1,5 @@
 /* global noUiSlider:readonly */
-import { uploadPreview } from './scale-upload-img.js'
+import { uploadingPreview } from './scale-upload-img.js'
 
 const slider = document.querySelector('.effect-level');
 const imgUploadEffect = document.querySelector('.img-upload__effects');
@@ -11,15 +11,15 @@ const onChangeEffects =  (evt) => {
   const effect = effectsItem.querySelector('.effects__preview');
 
   if (evt.target.matches('.effects__radio')) {
-    uploadPreview.className = effect.className;
-    uploadPreview.classList.remove('effects__preview');
+    uploadingPreview.className = effect.className;
+    uploadingPreview.classList.remove('effects__preview');
   } else {
     throw new Error('invalid');
   }
 
-  if (uploadPreview.className === 'effects__preview--none') {
+  if (uploadingPreview.className === 'effects__preview--none') {
     slider.classList.add('visually-hidden');
-    uploadPreview.style.filter = 'none';
+    uploadingPreview.style.filter = 'none';
   } else {
     slider.classList.remove('visually-hidden');
   }
@@ -39,24 +39,23 @@ noUiSlider.create(slider, {
 
 slider.noUiSlider.on('update', (values, handle) => {
   effectLevelValue.value = values[handle];
-  switch (uploadPreview.className) {
+  switch (uploadingPreview.className) {
     case 'effects__preview--chrome':
-      uploadPreview.style.filter = 'grayscale(' + effectLevelValue.value + ')';
+      uploadingPreview.style.filter = 'grayscale(' + effectLevelValue.value + ')';
       break;
     case 'effects__preview--sepia':
-      uploadPreview.style.filter = 'sepia(' + effectLevelValue.value + ')';
+      uploadingPreview.style.filter = 'sepia(' + effectLevelValue.value + ')';
       break;
     case 'effects__preview--marvin':
-      uploadPreview.style.filter = 'invert(' + effectLevelValue.value + '%)';
+      uploadingPreview.style.filter = 'invert(' + effectLevelValue.value + '%)';
       break;
     case 'effects__preview--phobos':
-      uploadPreview.style.filter = 'blur(' + effectLevelValue.value + 'px)';
+      uploadingPreview.style.filter = 'blur(' + effectLevelValue.value + 'px)';
       break;
     case 'effects__preview--heat':
-      uploadPreview.style.filter = 'brightness(' + effectLevelValue.value + ')';
+      uploadingPreview.style.filter = 'brightness(' + effectLevelValue.value + ')';
       break;
   }
-
 });
 
 imgUploadEffect.addEventListener('change', (evt) => {
@@ -107,5 +106,6 @@ imgUploadEffect.addEventListener('change', (evt) => {
     slider.noUiSlider.set(3)
   }
 });
+
 
 export {slider};

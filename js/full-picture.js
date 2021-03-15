@@ -1,4 +1,3 @@
-
 import { isEscEvent, isEnterEvent } from './util.js'
 
 const fullPicture = document.querySelector('.big-picture');
@@ -8,12 +7,10 @@ const bodyModalOpen = document.querySelector('body')
 const cancelFullPicture = document.querySelector('.big-picture__cancel');
 const commentsList = document.querySelector('.social__comments');
 const socialComment = commentsList.querySelector('.social__comment');
-
 const commentsFragment = document.createDocumentFragment();
 
-const avatarWidth = 35;
-const avatarHeight = 35;
-const shownComment = 5;
+const SHOWN_COMMENT = 5;
+
 
 const openFullPicture = () => {
   fullPicture.classList.remove('hidden');
@@ -51,6 +48,14 @@ const onPopupEnterKeydown = (evt) => {
   }
 };
 
+const createCommentsList = (comments) => {
+  const commentElement = socialComment.cloneNode(true);
+  const commentAvatar = commentElement.querySelector('.social__picture')
+  commentAvatar.src = comments.avatar;
+  commentAvatar.alt = comments.name;
+  commentElement.querySelector('.social__text').textContent = comments.message;
+  return commentElement;
+}
 
 const getFullPicture = (preview) => {
   openFullPicture();
@@ -64,44 +69,45 @@ const getFullPicture = (preview) => {
     commentsList.removeChild(commentsList.firstChild);
   }
 
-  const createCommentsList = (comments) => {
-    const commentElement = socialComment.cloneNode(true);
-    const commentAvatar = commentElement.querySelector('.social__picture')
-    commentAvatar.width = avatarWidth;
-    commentAvatar.height = avatarHeight;
-    commentAvatar.src = comments.avatar;
-    commentAvatar.alt = comments.name;
-    commentElement.querySelector('.social__text').textContent = comments.message;
-    return commentElement;
-  }
-
-  let fillCommentList = [];
-  fillCommentList = (arr) => {
-    for (let i = 0; i < arr.length; i++) {
-      commentsFragment.appendChild(createCommentsList(arr[i]));
-    }
-    commentsList.appendChild(commentsFragment);
-  };
-
   const showCommentsLoader = () => {
     commentsLoader.classList.remove('hidden');
-    commentsLoader.addEventListener('click', commentsLoaderButton);
+    commentsLoader.addEventListener('click', commentLoaderButton);
   };
 
   const hideCommentsLoader = () => {
     commentsLoader.classList.add('hidden');
-    commentsLoader.removeEventListener('click', commentsLoaderButton);
+    commentsLoader.removeEventListener('click', commentLoaderButton);
   };
 
+  const picture = {
+    commentsArr: [],
+    nextComment: 0,
+  };
 
-  const commentsLoaderButton = () => {
-    if (pictureComments.length <= shownComment) {
+  const commentLoaderButton = () => {
+    picture.commentsArr.slice(picture.nextComment, picture.nextComment + SHOWN_COMMENT).forEach((comment) => {
+      commentsFragment.appendChild(createCommentsList(comment));
+    });
+    commentsList.appendChild(commentsFragment);
+    picture.nextComment += SHOWN_COMMENT;
+
+    if (picture.nextComment >= picture.commentsArr.length) {
       hideCommentsLoader();
+      picture.nextComment = 0;
+
     }
-    fillCommentList(pictureComments.splice(0, shownComment));
+    if (picture.nextComment) {
+      commentsCountBox.childNodes[0].nodeValue = `${picture.nextComment} из `;
+    }
+    else {
+      commentsCountBox.childNodes[0].nodeValue = `${picture.commentsArr.length} из `;
+    }
   };
 
-  if (pictureComments.length <= shownComment) {
+  picture.commentsArr = preview.comments;
+  commentLoaderButton()
+
+  if (pictureComments.length <= SHOWN_COMMENT) {
     hideCommentsLoader();
   } else {
     showCommentsLoader();
@@ -109,7 +115,7 @@ const getFullPicture = (preview) => {
 
   const showCommentsCount = () => {
     commentsCountBox.classList.remove('hidden');
-    fillCommentList(pictureComments.splice(0, shownComment));
+    picture(pictureComments.splice(0, SHOWN_COMMENT));
   };
 
   showCommentsCount();
@@ -117,5 +123,3 @@ const getFullPicture = (preview) => {
 
 
 export { getFullPicture };
-
-

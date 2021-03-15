@@ -1,7 +1,7 @@
 import { hashtagInput } from './upload-img.js'
 
-
-const errorMessage = {
+const ALLOWED_SYMBOLS = /^[а-яА-ЯёЁa-zA-Z0-9]+$/;
+const ERROR_MESSAGE = {
   errorStart: 'хэш-тег должен начинаться с символа #',
   errorSymbol: 'хэш-тэг может состоять только из букв и чисел',
   tooShort: 'хеш-тег не может состоять только из #',
@@ -13,25 +13,24 @@ const errorMessage = {
 
 hashtagInput.addEventListener('input', () => {
 
-  const hashtagArr = hashtagInput.value.split(' ');
+  const hashtagsArr = hashtagInput.value.split(' ');
 
-  hashtagArr.forEach((hashtag, index) => {
+  hashtagsArr.forEach((hashtag, index) => {
 
-    const allowedSymbol = /^[а-яА-ЯёЁa-zA-Z0-9]+$/;
-    const isValid = allowedSymbol.test(hashtag.split('#')[1]);
+    const isValid = ALLOWED_SYMBOLS.test(hashtag.split('#')[1]);
 
     if (!(hashtag[0] === '#')) {
-      hashtagInput.setCustomValidity(errorMessage.errorStart)
+      hashtagInput.setCustomValidity(ERROR_MESSAGE.errorStart)
     } else if (!isValid) {
-      hashtagInput.setCustomValidity(errorMessage.errorSymbol)
+      hashtagInput.setCustomValidity(ERROR_MESSAGE.errorSymbol)
     } else if (hashtag.length === 1) {
-      hashtagInput.setCustomValidity(errorMessage.tooShort)
+      hashtagInput.setCustomValidity(ERROR_MESSAGE.tooShort)
     } else if (hashtag.length > 20) {
-      hashtagInput.setCustomValidity(errorMessage.tooLong);
-    } else if (hashtagArr[index - 1] === hashtagArr[index]) {
-      hashtagInput.setCustomValidity(errorMessage.errorRepeat)
-    } else if (hashtagArr.length > 5) {
-      hashtagInput.setCustomValidity(errorMessage.tooMuch)
+      hashtagInput.setCustomValidity(ERROR_MESSAGE.tooLong);
+    } else if (hashtagsArr[index - 1] === hashtagsArr[index]) {
+      hashtagInput.setCustomValidity(ERROR_MESSAGE.errorRepeat)
+    } else if (hashtagsArr.length > 5) {
+      hashtagInput.setCustomValidity(ERROR_MESSAGE.tooMuch)
     } else {
       hashtagInput.setCustomValidity('');
     }

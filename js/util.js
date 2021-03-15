@@ -1,16 +1,18 @@
+const main = document.querySelector('main');
+const fragment = document.createDocumentFragment();
+
+
 const getRandomNum = (min, max, precision) => {
   if (min < 0 && min < max) throw new Error('error')
   const n = min + Math.random() * (max + 1 - min)
   return !precision ? ~~n : n.toFixed(precision)
 }
 
-
 const getRandomArrEl = (arr, unique = false) => {
-  const item = arr[getRandomNum(0, arr.length - 1)]
-  if (unique) arr.splice(arr.indexOf(item), 1)
-  return item
+  const items = arr[getRandomNum(0, arr.length - 1)]
+  if (unique) arr.splice(arr.indexOf(items), 1)
+  return items
 }
-
 
 const isEscEvent = (evt) => {
   return evt.key === ('Escape' || 'Esc');
@@ -20,14 +22,9 @@ const isEnterEvent = (evt) => {
   return evt.key === 'Enter';
 };
 
-
-
-const showMessage = function (messageType) {
-  const main = document.querySelector('main');
+const showMessage = (messageType) => {
   const messageTemplate = document.querySelector(`#${messageType}`).content;
   const section = messageTemplate.querySelector(`.${messageType}`);
-  const fragment = document.createDocumentFragment();
-
   const element = section.cloneNode(true);
   fragment.appendChild(element);
   main.appendChild(fragment);
@@ -43,7 +40,6 @@ const showMessage = function (messageType) {
   });
 
   document.addEventListener('keydown', onMessageEscKeydown);
-
 };
 
 const closeMessageModal = () => {
