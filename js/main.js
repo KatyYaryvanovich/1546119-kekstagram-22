@@ -1,4 +1,3 @@
-// import './data.js';
 import { getPreview } from './preview.js';
 import './full-picture.js';
 import { closeUploadImg } from './upload-img.js';
