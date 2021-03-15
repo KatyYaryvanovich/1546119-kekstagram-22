@@ -4,12 +4,13 @@ import { getPreview } from './preview.js';
 
 const blockImgFilters = document.querySelector('.img-filters');
 const imgFiltersForm = document.querySelector('.img-filters__form');
-
-const RERENDER_DELAY = 500;
-const randomPicsCount = 10;
 let getDefaultImgArr;
 let getRandomImgArr;
 let getPopularImgArr;
+
+const RERENDER_DELAY = 500;
+const RANDOM_PICS_COUNT = 10;
+
 
 const getCallBack = (cb) => {
   cb();
@@ -21,7 +22,6 @@ const setFiltration = (previewList) => {
   getPreview(defaultImgArr);
 
   imgFiltersForm.addEventListener('click', (evt) => {
-
     for (let i = 0; i < imgFiltersForm.children.length; i++) {
       imgFiltersForm.children[i].classList.remove('img-filters__button--active');
     }
@@ -42,22 +42,24 @@ const setFiltration = (previewList) => {
         () => getPreview(popularImgArr),
         RERENDER_DELAY,
       ));
+      getPopularImgArr();
     }
 
     else if (evt.target.id === 'filter-random') {
-      const randomImgArr = [];
-      for (let i = 0; i < randomPicsCount; i++) {
+      const randomImagesArr = [];
+      for (let i = 0; i < RANDOM_PICS_COUNT; i++) {
         let element = previewList[getRandomNum(0, previewList.length - 1)];
-        while (randomImgArr.indexOf(element) !== -1) {
+        while (randomImagesArr.indexOf(element) !== -1) {
           element = previewList[getRandomNum(0, previewList.length - 1)];
         }
-        randomImgArr.push(element);
+        randomImagesArr.push(element);
       }
 
       getRandomImgArr = getCallBack(_.debounce(
-        () => getPreview(randomImgArr),
+        () => getPreview(randomImagesArr),
         RERENDER_DELAY,
       ));
+      getRandomImgArr();
     }
 
     else {
@@ -66,7 +68,9 @@ const setFiltration = (previewList) => {
         RERENDER_DELAY,
       ));
     }
+    getDefaultImgArr();
   });
 }
 
-export {setFiltration, getDefaultImgArr, getRandomImgArr, getPopularImgArr};
+
+export {setFiltration};
