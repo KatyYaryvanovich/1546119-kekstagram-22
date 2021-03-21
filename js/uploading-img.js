@@ -1,6 +1,5 @@
 import { isEscEvent, isEnterEvent } from './util.js'
-import { scaleValue, SCALE_DEFOLT, uploadingPreview } from './scale-upload-img.js'
-import { slider } from './effect-upload-img.js';
+import { scaleValue, SCALE_DEFOLT, uploadingPreview, slider } from './editor-uploading-img.js'
 
 const uploadingImg = document.querySelector('#upload-file');
 const uploadingOverlay = document.querySelector('.img-upload__overlay');
@@ -9,8 +8,6 @@ const bodyModalOpen = document.querySelector('body');
 const uploadingCancel = document.querySelector('#upload-cancel');
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
-
-
 const openUploadImg = () => {
   uploadingOverlay.classList.remove('hidden');
   bodyModalOpen.classList.add('modal-open');
@@ -21,12 +18,9 @@ const openUploadImg = () => {
   document.addEventListener('keydown', onPopupEscKeydown);
   uploadingOverlay.addEventListener('keydown', onPopupEnterKeydown);
 }
-
 uploadingImg.addEventListener('change', () => {
   openUploadImg();
 });
-
-
 const closeUploadImg = () => {
   uploadingOverlay.classList.add('hidden');
   bodyModalOpen.classList.remove('modal-open');
@@ -35,23 +29,18 @@ const closeUploadImg = () => {
   document.removeEventListener('keydown', onPopupEscKeydown);
   uploadingOverlay.removeEventListener('keydown', onPopupEnterKeydown);
 }
-
 uploadingCancel.addEventListener('click', () => {
   closeUploadImg();
 });
-
 const onPopupEscKeydown = (evt) => {
   if (isEscEvent(evt) && !((commentInput === document.activeElement) || (hashtagInput === document.activeElement))) {
     evt.preventDefault();
     closeUploadImg();
   }
 };
-
 const onPopupEnterKeydown = (evt) => {
   if (isEnterEvent(evt)) {
     openUploadImg();
   }
 };
-
-
 export { hashtagInput, closeUploadImg }

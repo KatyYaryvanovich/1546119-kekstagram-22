@@ -121,5 +121,4 @@ const getFullPicture = (preview) => {
   showCommentsCount();
 }
 
-
 export { getFullPicture };
