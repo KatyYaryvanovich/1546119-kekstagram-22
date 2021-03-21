@@ -1,16 +1,16 @@
-import { getPreview } from './preview.js';
+import { renderPreview } from './preview.js';
 import './full-picture.js';
-import { closeUploadImg } from './upload-img.js';
-import './effect-upload-img.js';
+import { closeUploadImg } from './uploading-img.js';
+import './editor-uploading-img.js';
 import './validation.js';
 import { getData } from './api.js';
-import { setUserFormSubmit } from './message-for-user.js'
+import { handleFormSubmit } from './util.js'
 import { setFiltration } from './filtration.js'
 
 
 getData((pictures) => {
-  getPreview(pictures);
+  renderPreview(pictures);
   setFiltration((pictures));
 });
 
-setUserFormSubmit(closeUploadImg);
+handleFormSubmit(closeUploadImg);
