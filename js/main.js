@@ -1,3 +1,4 @@
+
 import { renderPreview } from './preview.js';
 import './full-picture.js';
 import { closeUploadImg } from './uploading-img.js';

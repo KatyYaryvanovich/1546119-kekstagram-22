@@ -1,4 +1,3 @@
-
 const getData = async (onSuccess, onFail) => {
 
   try {
