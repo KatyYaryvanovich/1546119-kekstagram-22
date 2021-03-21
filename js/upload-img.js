@@ -1,5 +1,6 @@
 import { isEscEvent, isEnterEvent } from './util.js'
-import { scaleValue, SCALE_DEFOLT, uploadingPreview, slider } from './editor-uploading-img.js'
+import { scaleValue, SCALE_DEFOLT, uploadingPreview } from './scale-upload-img.js'
+import { slider } from './effect-upload-img.js';
 
 const uploadingImg = document.querySelector('#upload-file');
 const uploadingOverlay = document.querySelector('.img-upload__overlay');
