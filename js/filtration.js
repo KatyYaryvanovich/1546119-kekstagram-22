@@ -1,6 +1,6 @@
 /* global _:readonly */
 import { getRandomNum } from './util.js';
-import { getPreview } from './preview.js';
+import { renderPreview } from './preview.js';
 
 const blockImgFilters = document.querySelector('.img-filters');
 const imgFiltersForm = document.querySelector('.img-filters__form');
@@ -19,7 +19,7 @@ const getCallBack = (cb) => {
 const setFiltration = (previewList) => {
   blockImgFilters.classList.remove('img-filters--inactive');
   const defaultImgArr = previewList.slice();
-  getPreview(defaultImgArr);
+  renderPreview(defaultImgArr);
 
   imgFiltersForm.addEventListener('click', (evt) => {
     for (let i = 0; i < imgFiltersForm.children.length; i++) {
@@ -39,7 +39,7 @@ const setFiltration = (previewList) => {
       });
 
       getPopularImgArr = getCallBack(_.debounce(
-        () => getPreview(popularImgArr),
+        () => renderPreview(popularImgArr),
         RERENDER_DELAY,
       ));
       getPopularImgArr();
@@ -56,7 +56,7 @@ const setFiltration = (previewList) => {
       }
 
       getRandomImgArr = getCallBack(_.debounce(
-        () => getPreview(randomImagesArr),
+        () => renderPreview(randomImagesArr),
         RERENDER_DELAY,
       ));
       getRandomImgArr();
@@ -64,7 +64,7 @@ const setFiltration = (previewList) => {
 
     else {
       getDefaultImgArr = getCallBack(_.debounce(
-        () => getPreview(defaultImgArr),
+        () => renderPreview(defaultImgArr),
         RERENDER_DELAY,
       ));
     }
