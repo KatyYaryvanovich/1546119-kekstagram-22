@@ -1,37 +1,33 @@
+
 const getData = async (onSuccess, onFail) => {
-  let response;
+
   try {
-    response = await fetch('https://22.javascript.pages.academy/kekstagram/data')
-    if (response.ok) {
-      const pictures = await response.json()
-      return onSuccess(pictures)
-    }
+    const response = await fetch('https://22.javascript.pages.academy/kekstagram/data')
+    if (!response.ok) throw new Error(response.statusText)
+    const pictures = await response.json()
+    return onSuccess(pictures)
   } catch (error) {
-    return onFail()
+    onFail(error.message || error)
   }
 }
 
-const sendData = async (onSuccess, onFail, pictures) => {
-  let response;
+const sendData = async (formData) => {
   try {
-    response = await fetch(
+    const response = await fetch(
       'https://22.javascript.pages.academy/kekstagram',
       {
+        mode: 'no-cors',
         method: 'POST',
-        headers: {'Content-Type': 'application/json;charset=utf-8'},
-        body: JSON.stringify(pictures),
+        headers: { 'Content-Type': 'multipart/form-data' },
+        body: formData,
       },
-    );
+    )
+    if (!response.ok) throw new Error(response.statusText)
+    const result = await response.json()
+    return result
   } catch (error) {
-    return onFail()
-  }
-
-  if (response.ok) {
-    onSuccess();
-  } else {
-    throw new Error();
+    throw new Error(error.message || error)
   }
 }
-
 
 export { getData, sendData };

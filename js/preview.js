@@ -6,7 +6,7 @@ const newPictureTemplate = pictureTemplate.querySelector('.picture');
 const fragment = document.createDocumentFragment();
 
 
-const getPreview = (photoObjects) => {
+const renderPreview = (photoObjects) => {
   const pic = document.querySelectorAll('.pictures a');
   for (let i = 0; i < pic.length; i++) {
     pic[i].remove();
@@ -27,4 +27,4 @@ const getPreview = (photoObjects) => {
 }
 
 
-export { getPreview }
+export { renderPreview }
