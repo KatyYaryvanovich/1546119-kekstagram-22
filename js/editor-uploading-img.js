@@ -36,7 +36,7 @@ scaleBigger.addEventListener('click', () => {
 });
 
 
-const onChangeEffects =  (evt) => {
+const changeEffects =  (evt) => {
   const effectsItem = evt.target.closest('.effects__item');
   const effect = effectsItem.querySelector('.effects__preview');
 
@@ -55,7 +55,7 @@ const onChangeEffects =  (evt) => {
   }
 }
 
-imgUploadEffect.addEventListener('change', onChangeEffects);
+imgUploadEffect.addEventListener('change', changeEffects);
 
 noUiSlider.create(slider, {
   range: {

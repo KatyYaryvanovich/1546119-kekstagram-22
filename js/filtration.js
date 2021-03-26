@@ -34,15 +34,15 @@ const setFiltration = (previewList) => {
       });
       renderPreview(popularImgArr);
     } else if (evt.target.id === 'filter-random') {
-      const randomImagesArr = []
+      const arrRandomImages = []
       for (let i = 0; i < RANDOM_PICS_COUNT; i++) {
         let element = previewList[getRandomNum(0, previewList.length - 1)]
-        while (randomImagesArr.indexOf(element) !== -1) {
+        while (arrRandomImages.indexOf(element) !== -1) {
           element = previewList[getRandomNum(0, previewList.length - 1)]
         }
-        randomImagesArr.push(element);
+        arrRandomImages.push(element);
       }
-      renderPreview(randomImagesArr);
+      renderPreview(arrRandomImages);
     } else {
       renderPreview(defaultImgArr);
     }

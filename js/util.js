@@ -55,7 +55,7 @@ const showMessage = (messageType) => {
   document.querySelector(`.${messageType}__button`).addEventListener('click', () => {
     closeMessageModal();
   });
-  document.addEventListener('keydown', onMessageEscKeydown);
+  document.addEventListener('keydown', closeMessageEscKeydown);
 };
 
 const closeMessageModal = () => {
@@ -64,9 +64,10 @@ const closeMessageModal = () => {
     removeElement = document.querySelector('.error');
   }
   removeElement.remove();
-  document.removeEventListener('keydown', onMessageEscKeydown);
+  document.removeEventListener('keydown', closeMessageEscKeydown);
 };
-const onMessageEscKeydown = (evt) => {
+
+const closeMessageEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
     closeMessageModal();
   }

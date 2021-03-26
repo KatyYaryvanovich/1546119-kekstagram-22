@@ -17,8 +17,8 @@ const openFullPicture = () => {
   commentsCountBox.classList.add('hidden');
   commentsLoader.classList.add('hidden');
   bodyModalOpen.classList.add('.modal-open');
-  document.addEventListener('keydown', onPopupEscKeydown);
-  fullPicture.addEventListener('keydown', onPopupEnterKeydown);
+  document.addEventListener('keydown', closePopupEscKeydown);
+  fullPicture.addEventListener('keydown', openPopupEnterKeydown);
 };
 
 const closeFullPicture = () => {
@@ -26,8 +26,8 @@ const closeFullPicture = () => {
   commentsCountBox.classList.remove('hidden');
   commentsLoader.classList.remove('hidden');
   bodyModalOpen.classList.remove('.modal-open');
-  document.removeEventListener('keydown', onPopupEscKeydown);
-  fullPicture.removeEventListener('keydown', onPopupEnterKeydown);
+  document.removeEventListener('keydown', closePopupEscKeydown);
+  fullPicture.removeEventListener('keydown', openPopupEnterKeydown);
   commentsCountBox.classList.add('hidden')
 };
 
@@ -35,14 +35,14 @@ cancelFullPicture.addEventListener('click', () => {
   closeFullPicture();
 });
 
-const onPopupEscKeydown = (evt) => {
+const closePopupEscKeydown = (evt) => {
   if (isEscEvent(evt)) {
     evt.preventDefault();
     closeFullPicture();
   }
 };
 
-const onPopupEnterKeydown = (evt) => {
+const openPopupEnterKeydown = (evt) => {
   if (isEnterEvent(evt)) {
     openFullPicture();
   }
@@ -80,18 +80,18 @@ const getFullPicture = (preview) => {
   };
 
   const picture = {
-    commentsArr: [],
+    arrComments: [],
     nextComment: 0,
   };
 
   const commentLoaderButton = () => {
-    picture.commentsArr.slice(picture.nextComment, picture.nextComment + SHOWN_COMMENT).forEach((comment) => {
+    picture.arrComments.slice(picture.nextComment, picture.nextComment + SHOWN_COMMENT).forEach((comment) => {
       commentsFragment.appendChild(createCommentsList(comment));
     });
     commentsList.appendChild(commentsFragment);
     picture.nextComment += SHOWN_COMMENT;
 
-    if (picture.nextComment >= picture.commentsArr.length) {
+    if (picture.nextComment >= picture.arrComments.length) {
       hideCommentsLoader();
       picture.nextComment = 0;
 
@@ -100,11 +100,11 @@ const getFullPicture = (preview) => {
       commentsCountBox.childNodes[0].nodeValue = `${picture.nextComment} из `;
     }
     else {
-      commentsCountBox.childNodes[0].nodeValue = `${picture.commentsArr.length} из `;
+      commentsCountBox.childNodes[0].nodeValue = `${picture.arrComments.length} из `;
     }
   };
 
-  picture.commentsArr = preview.comments;
+  picture.arrComments = preview.comments;
   commentLoaderButton()
 
   if (pictureComments.length <= SHOWN_COMMENT) {

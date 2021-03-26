@@ -16,8 +16,8 @@ const openUploadImg = () => {
   uploadingPreview.style.transform = 'scale(1)';
   uploadingPreview.style.filter = 'none';
   slider.classList.add('visually-hidden');
-  document.addEventListener('keydown', onFormEscKeydown);
-  uploadingOverlay.addEventListener('keydown', onFormEnterKeydown);
+  document.addEventListener('keydown', closeFormEscKeydown);
+  uploadingOverlay.addEventListener('keydown', openFormEnterKeydown);
 }
 uploadingImg.addEventListener('change', () => {
   openUploadImg();
@@ -28,8 +28,8 @@ const closeUploadImg = () => {
   bodyModalOpen.classList.remove('modal-open');
   uploadingImg.value = '';
   uploadingInput.value = '';
-  document.removeEventListener('keydown', onFormEscKeydown);
-  uploadingOverlay.removeEventListener('keydown', onFormEnterKeydown);
+  document.removeEventListener('keydown', closeFormEscKeydown);
+  uploadingOverlay.removeEventListener('keydown', openFormEnterKeydown);
 }
 
 uploadingCancel.addEventListener('click', () => {
@@ -37,13 +37,13 @@ uploadingCancel.addEventListener('click', () => {
 });
 
 
-const onFormEscKeydown = (evt) => {
+const closeFormEscKeydown = (evt) => {
   if (isEscEvent(evt) && !((commentInput === document.activeElement) || (hashtagInput === document.activeElement))) {
     uploadingCancel.click();
   }
 };
 
-const onFormEnterKeydown = (evt) => {
+const openFormEnterKeydown = (evt) => {
   if (isEnterEvent(evt)) {
     openUploadImg();
   }
