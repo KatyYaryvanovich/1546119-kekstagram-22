@@ -4,6 +4,7 @@ import { sendData } from './api.js'
 const main = document.querySelector('main');
 const fragment = document.createDocumentFragment();
 const uploadingForm = document.querySelector('.img-upload__form');
+const uploadingCancel = document.querySelector('#upload-cancel');
 
 const ALLOWED_SYMBOLS = /^[а-яА-ЯёЁa-zA-Z0-9]+$/;
 const ERROR_MESSAGE = {
@@ -17,14 +18,18 @@ const ERROR_MESSAGE = {
 
 
 const getRandomNum = (min, max, precision) => {
-  if (min < 0 && min < max) throw new Error('error')
+  if (min < 0 && min < max) {
+    throw new Error('error')
+  }
   const n = min + Math.random() * (max + 1 - min)
   return !precision ? ~~n : n.toFixed(precision)
 }
 
 const getRandomArrEl = (arr, unique = false) => {
   const items = arr[getRandomNum(0, arr.length - 1)]
-  if (unique) arr.splice(arr.indexOf(items), 1)
+  if (unique) {
+    arr.splice(arr.indexOf(items), 1)
+  }
   return items
 }
 
@@ -98,6 +103,7 @@ const handleFormSubmit = () => {
     sendData(new FormData(e.target))
       .then(() => showMessage('success'))
       .catch(() => showMessage('error'))
+    uploadingCancel.click();
   })
 }
 

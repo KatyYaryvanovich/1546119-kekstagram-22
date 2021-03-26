@@ -39,7 +39,7 @@ uploadingCancel.addEventListener('click', () => {
 
 const onFormEscKeydown = (evt) => {
   if (isEscEvent(evt) && !((commentInput === document.activeElement) || (hashtagInput === document.activeElement))) {
-    uploadingCancel.click()
+    uploadingCancel.click();
   }
 };
 
