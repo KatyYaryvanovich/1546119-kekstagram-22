@@ -8,6 +8,7 @@ const bodyModalOpen = document.querySelector('body');
 const uploadingCancel = document.querySelector('#upload-cancel');
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
+
 const openUploadImg = () => {
   uploadingOverlay.classList.remove('hidden');
   bodyModalOpen.classList.add('modal-open');
@@ -15,30 +16,35 @@ const openUploadImg = () => {
   uploadingPreview.style.transform = 'scale(1)';
   uploadingPreview.style.filter = 'none';
   slider.classList.add('visually-hidden');
-  document.addEventListener('keydown', onPopupEscKeydown);
-  uploadingOverlay.addEventListener('keydown', onPopupEnterKeydown);
+  document.addEventListener('keydown', onFormEscKeydown);
+  uploadingOverlay.addEventListener('keydown', onFormEnterKeydown);
 }
 uploadingImg.addEventListener('change', () => {
   openUploadImg();
 });
+
 const closeUploadImg = () => {
   uploadingOverlay.classList.add('hidden');
   bodyModalOpen.classList.remove('modal-open');
   uploadingImg.value = '';
   uploadingInput.value = '';
-  document.removeEventListener('keydown', onPopupEscKeydown);
-  uploadingOverlay.removeEventListener('keydown', onPopupEnterKeydown);
+  document.removeEventListener('keydown', onFormEscKeydown);
+  uploadingOverlay.removeEventListener('keydown', onFormEnterKeydown);
 }
+
 uploadingCancel.addEventListener('click', () => {
   closeUploadImg();
 });
-const onPopupEscKeydown = (evt) => {
+
+
+const onFormEscKeydown = (evt) => {
   if (isEscEvent(evt) && !((commentInput === document.activeElement) || (hashtagInput === document.activeElement))) {
     evt.preventDefault();
     closeUploadImg();
   }
 };
-const onPopupEnterKeydown = (evt) => {
+
+const onFormEnterKeydown = (evt) => {
   if (isEnterEvent(evt)) {
     openUploadImg();
   }

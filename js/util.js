@@ -21,17 +21,21 @@ const getRandomNum = (min, max, precision) => {
   const n = min + Math.random() * (max + 1 - min)
   return !precision ? ~~n : n.toFixed(precision)
 }
+
 const getRandomArrEl = (arr, unique = false) => {
   const items = arr[getRandomNum(0, arr.length - 1)]
   if (unique) arr.splice(arr.indexOf(items), 1)
   return items
 }
+
 const isEscEvent = (evt) => {
   return evt.key === ('Escape' || 'Esc');
 };
+
 const isEnterEvent = (evt) => {
   return evt.key === 'Enter';
 };
+
 const showMessage = (messageType) => {
   const messageTemplate = document.querySelector(`#${messageType}`).content;
   const section = messageTemplate.querySelector(`.${messageType}`);

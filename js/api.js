@@ -15,9 +15,7 @@ const sendData = async (formData) => {
     const response = await fetch(
       'https://22.javascript.pages.academy/kekstagram',
       {
-        mode: 'no-cors',
         method: 'POST',
-        headers: { 'Content-Type': 'multipart/form-data' },
         body: formData,
       },
     )
